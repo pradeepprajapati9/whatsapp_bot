@@ -1,0 +1,22 @@
+# Render.com deployment config for the WhatsApp front-desk bot.
+# One free web service running the Flask webhook (app.py) via gunicorn.
+# Env vars (WHATSAPP_TOKEN, PHONE_NUMBER_ID, VERIFY_TOKEN, OWNER_WA) are set in
+# the Render dashboard (NOT committed) — see README.
+services:
+  - type: web
+    name: whatsapp-frontdesk-bot
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 1 --bind 0.0.0.0:$PORT --timeout 60
+    envVars:
+      - key: VERIFY_TOKEN
+        sync: false
+      - key: WHATSAPP_TOKEN
+        sync: false
+      - key: PHONE_NUMBER_ID
+        sync: false
+      - key: OWNER_WA
+        sync: false
+      - key: GRAPH_API_VERSION
+        value: v21.0
