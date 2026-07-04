@@ -124,6 +124,33 @@ def options_footer(config: dict) -> str:
     )
 
 
+# --- Tappable menu (WhatsApp interactive list) -------------------------------
+# Each row's id is a word that detect_intent() understands, so tapping a row is
+# the same as the customer typing that word. Titles must stay <= 24 chars.
+MENU_ROWS = [
+    ("services",    "🩺 Services & prices"),
+    ("appointment", "📅 Book appointment"),
+    ("timing",      "🕒 Clinic timings"),
+    ("address",     "📍 Location"),
+    ("phone",       "📞 Contact / call"),
+]
+
+
+def menu_rows(config: dict) -> list:
+    """(id, title) rows for the tappable menu. A business can override with a
+    `menu_rows` list in its config; otherwise the sensible default is used."""
+    rows = config.get("menu_rows") or MENU_ROWS
+    return [(r["id"], r["title"]) if isinstance(r, dict) else tuple(r) for r in rows]
+
+
+def should_offer_menu(text: str, session: dict | None) -> bool:
+    """Show the tappable menu on a greeting or an unrecognized message — but
+    never mid-booking (that would interrupt the name/service/time questions)."""
+    if session and session.get("flow"):
+        return False
+    return detect_intent(text) in ("greeting", None)
+
+
 # --- Booking flow (multi-step; state lives in the per-customer `session`) -----
 # session shape while a booking is active:
 #   {"phone": "9199...", "flow": "appointment", "step": "name"|"service"|"time",
@@ -217,15 +244,19 @@ def _reset_flow(session: dict) -> None:
 
 
 # --- Main entry --------------------------------------------------------------
-def build_reply(text: str, config: dict, session: dict | None = None) -> str:
+def build_reply(text: str, config: dict, session: dict | None = None,
+                interactive: bool = False) -> str:
     """Core: message text -> reply string. This is what the webhook sends back.
 
     `session` (a mutable dict, one per customer) enables the multi-step booking
     flow. If it's None, FAQ answers still work but booking can't remember state.
+    `interactive=True` drops the typed-options footer, because the caller is
+    attaching a tappable menu instead (see app.py send_menu).
     """
     if session is None:
         session = {}
     name = config.get("business_name", "our shop")
+    footer = "" if interactive else options_footer(config)
 
     # 1. If a booking is in progress, the message is an answer to the flow.
     if session.get("flow"):
@@ -239,7 +270,7 @@ def build_reply(text: str, config: dict, session: dict | None = None) -> str:
 
     if intent == "greeting":
         greeting = config.get("greeting", "Hello!").format(business_name=name)
-        return greeting + options_footer(config)
+        return greeting + footer
 
     if intent in ("price", "menu"):
         return format_catalog(config) + "\n\n" + config.get("closing_line", "")
@@ -265,5 +296,5 @@ def build_reply(text: str, config: dict, session: dict | None = None) -> str:
     # Fallback: we didn't understand — guide them to valid options.
     return (
         f"Namaste! 🙏 Main {name} ka assistant hoon. "
-        "Aapki baat samajh nahi aayi." + options_footer(config)
+        "Aapki baat samajh nahi aayi." + footer
     )

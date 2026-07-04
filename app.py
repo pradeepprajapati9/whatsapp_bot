@@ -24,7 +24,7 @@ try:
 except ImportError:
     pass
 
-from bot import load_config, build_reply
+from bot import load_config, build_reply, menu_rows, should_offer_menu
 
 app = Flask(__name__)
 CONFIG = load_config()
@@ -70,11 +70,15 @@ def incoming():
 
         msg = messages[0]
         sender = msg["from"]                 # customer's WhatsApp number
-        text = msg.get("text", {}).get("body", "")
+        text = _incoming_text(msg)           # plain text OR a tapped menu id
 
         session = SESSIONS.setdefault(sender, {"phone": sender})
-        reply = build_reply(text, CONFIG, session)
-        send_message(sender, reply)
+        offer_menu = should_offer_menu(text, session)
+        reply = build_reply(text, CONFIG, session, interactive=offer_menu)
+        if offer_menu and not session.get("flow"):
+            send_menu(sender, reply)         # reply + tappable option list
+        else:
+            send_message(sender, reply)
 
         # If a booking just completed, alert the business owner.
         booked = session.pop("_booked", None)
@@ -84,6 +88,20 @@ def incoming():
         # Malformed / unexpected payload — acknowledge so Meta doesn't retry.
         pass
     return "ok", 200
+
+
+def _incoming_text(msg: dict) -> str:
+    """Return the customer's typed text, or the id of a tapped menu row/button
+    (WhatsApp sends taps as an 'interactive' message, not plain text)."""
+    if msg.get("type") == "interactive":
+        inter = msg.get("interactive", {})
+        chosen = inter.get("list_reply") or inter.get("button_reply") or {}
+        return chosen.get("id", "")
+    return msg.get("text", {}).get("body", "")
+
+
+def _headers() -> dict:
+    return {"Authorization": f"Bearer {ACCESS_TOKEN}", "Content-Type": "application/json"}
 
 
 def send_message(to: str, body: str) -> None:
@@ -98,13 +116,39 @@ def send_message(to: str, body: str) -> None:
         "type": "text",
         "text": {"body": body},
     }
-    headers = {
-        "Authorization": f"Bearer {ACCESS_TOKEN}",
-        "Content-Type": "application/json",
-    }
-    resp = requests.post(GRAPH_URL, json=payload, headers=headers, timeout=15)
+    resp = requests.post(GRAPH_URL, json=payload, headers=_headers(), timeout=15)
     if resp.status_code >= 400:
         print(f"[send error {resp.status_code}] {resp.text}")
+
+
+def send_menu(to: str, body: str) -> None:
+    """Send the reply text together with a tappable option list, so the customer
+    can pick 'Services', 'Book appointment', etc. instead of typing it."""
+    rows = menu_rows(CONFIG)
+    if not ACCESS_TOKEN or not PHONE_NUMBER_ID:
+        print(f"[DRY RUN] menu to {to}:\n{body}\n  rows={[r[0] for r in rows]}\n")
+        return
+
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": to,
+        "type": "interactive",
+        "interactive": {
+            "type": "list",
+            "body": {"text": body[:1024]},
+            "action": {
+                "button": "Menu ▾",
+                "sections": [{
+                    "title": "How can I help?",
+                    "rows": [{"id": rid, "title": title[:24]} for rid, title in rows],
+                }],
+            },
+        },
+    }
+    resp = requests.post(GRAPH_URL, json=payload, headers=_headers(), timeout=15)
+    if resp.status_code >= 400:
+        print(f"[menu send error {resp.status_code}] {resp.text}")
+        send_message(to, body)   # fallback so the customer still gets a reply
 
 
 def notify_owner(record: dict) -> None:
