@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WhatsApp Front-Desk Bot — Clinics & Salons | Auto-reply + Appointments</title>
+<meta name="description" content="A WhatsApp bot that answers your customers 24x7 and books appointments automatically. For clinics, salons, coaching centres. Free replies, no medical data, easy setup." />
+<style>
+  :root{
+    --green:#25D366; --green-d:#128C7E; --ink:#0b141a; --muted:#667781;
+    --bg:#f0f2f5; --card:#ffffff; --line:#e3e7ea; --bubble-in:#ffffff; --bubble-out:#d9fdd3;
+    --chat-bg:#efeae2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+  a{color:var(--green-d);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .btn{display:inline-block;background:var(--green);color:#fff;font-weight:700;padding:14px 26px;border-radius:999px;font-size:16px;box-shadow:0 4px 14px rgba(37,211,102,.35);transition:transform .1s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.ghost{background:#fff;color:var(--green-d);border:2px solid var(--green)}
+
+  /* header */
+  header{background:linear-gradient(135deg,#075E54,#128C7E);color:#fff;padding:14px 0}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .logo{font-weight:800;font-size:19px;display:flex;align-items:center;gap:8px}
+
+  /* hero */
+  .hero{background:linear-gradient(135deg,#128C7E,#25D366);color:#fff;padding:56px 0 64px}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .hero h1{font-size:40px;line-height:1.15;margin-bottom:16px;letter-spacing:-.5px}
+  .hero p.sub{font-size:18px;opacity:.95;margin-bottom:26px;max-width:520px}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .badges{margin-top:22px;display:flex;gap:18px;flex-wrap:wrap;font-size:14px;opacity:.95}
+  .badges span{display:flex;align-items:center;gap:6px}
+
+  /* phone mock */
+  .phone{width:330px;max-width:100%;margin:0 auto;background:#000;border-radius:34px;padding:10px;box-shadow:0 22px 50px rgba(0,0,0,.35)}
+  .phone-inner{background:var(--chat-bg);border-radius:26px;overflow:hidden;display:flex;flex-direction:column;height:560px}
+  .pbar{background:#075E54;color:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px}
+  .pbar .av{width:38px;height:38px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:18px}
+  .pbar .nm{font-weight:700;font-size:15px}
+  .pbar .st{font-size:11px;opacity:.8}
+  .chat{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:8px;background-image:linear-gradient(rgba(229,221,213,.6),rgba(229,221,213,.6))}
+  .msg{max-width:80%;padding:8px 11px;border-radius:10px;font-size:14px;white-space:pre-wrap;word-wrap:break-word;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+  .msg.in{background:var(--bubble-in);align-self:flex-start;border-top-left-radius:2px}
+  .msg.out{background:var(--bubble-out);align-self:flex-end;border-top-right-radius:2px}
+  .msg b{color:#075E54}
+  .inbar{display:flex;gap:8px;padding:10px;background:#f0f0f0}
+  .inbar input{flex:1;border:none;border-radius:999px;padding:11px 15px;font-size:14px;outline:none}
+  .inbar button{border:none;background:var(--green);color:#fff;width:44px;border-radius:50%;font-size:18px;cursor:pointer}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 10px 10px;background:#f0f0f0}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12.5px;cursor:pointer;color:var(--green-d);font-weight:600}
+  .chip:hover{background:var(--green);color:#fff}
+
+  /* sections */
+  section{padding:56px 0}
+  h2{font-size:30px;text-align:center;margin-bottom:8px;letter-spacing:-.5px}
+  .lead{text-align:center;color:var(--muted);max-width:620px;margin:0 auto 36px;font-size:17px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .feat .ic{font-size:28px;margin-bottom:10px}
+  .feat h3{font-size:17px;margin-bottom:6px}
+  .feat p{color:var(--muted);font-size:14.5px}
+
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;position:relative}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-14px;left:20px;width:30px;height:30px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800}
+  .step h3{font-size:15.5px;margin:6px 0}
+  .step p{color:var(--muted);font-size:14px}
+
+  /* pricing */
+  .price-wrap{background:#fff}
+  .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+  .plan{border:1px solid var(--line);border-radius:18px;padding:28px 24px;background:#fff;display:flex;flex-direction:column}
+  .plan.pop{border:2px solid var(--green);box-shadow:0 12px 30px rgba(37,211,102,.18);position:relative}
+  .plan.pop .tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px}
+  .plan h3{font-size:18px;margin-bottom:6px}
+  .plan .amt{font-size:34px;font-weight:800;margin:8px 0}
+  .plan .amt small{font-size:15px;color:var(--muted);font-weight:500}
+  .plan ul{list-style:none;margin:14px 0 20px;flex:1}
+  .plan li{padding:6px 0;font-size:14.5px;color:#3b4a54;display:flex;gap:8px}
+  .plan li::before{content:"✓";color:var(--green);font-weight:800}
+
+  .cta-band{background:linear-gradient(135deg,#075E54,#128C7E);color:#fff;text-align:center;border-radius:20px;padding:44px 24px;margin:10px 0}
+  .cta-band h2{color:#fff}
+  .cta-band p{opacity:.92;margin-bottom:22px}
+
+  .note{background:#fff8e1;border:1px solid #ffe6a1;border-radius:14px;padding:16px 18px;font-size:14px;color:#7a5b00;max-width:760px;margin:26px auto 0}
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:30px 0}
+
+  @media(max-width:860px){
+    .hero .wrap{grid-template-columns:1fr;text-align:center}
+    .hero p.sub{margin-left:auto;margin-right:auto}
+    .hero .cta,.badges{justify-content:center}
+    .grid,.steps,.prices{grid-template-columns:1fr}
+    .hero h1{font-size:32px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">💬 FrontDesk Bot</div>
+    <a href="#pricing" class="btn ghost" style="padding:8px 18px;font-size:14px">Pricing</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Aapka WhatsApp khud jawab de — aur appointment book kare.</h1>
+      <p class="sub">Clinic, salon, coaching ke liye ek WhatsApp bot jo customers ke sawaal 24×7 answer karta hai aur appointment/lead khud capture karta hai. Aap so rahe ho, bot kaam kar raha hai.</p>
+      <div class="cta">
+        <a href="#demo" class="btn">▶ Live Demo try karo</a>
+        <a href="#pricing" class="btn ghost">Pricing dekho</a>
+      </div>
+      <div class="badges">
+        <span>✅ Free replies (no AI cost)</span>
+        <span>🔒 Official WhatsApp API</span>
+        <span>⚖️ No medical data (DPDP-safe)</span>
+      </div>
+    </div>
+    <div>
+      <!-- phone preview mirrors the live demo below -->
+      <div class="phone">
+        <div class="phone-inner">
+          <div class="pbar">
+            <div class="av">🏥</div>
+            <div><div class="nm">City Care Clinic</div><div class="st">online • bot assistant</div></div>
+          </div>
+          <div class="chat" id="previewChat"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section>
+  <div class="wrap">
+    <h2>Kya karta hai ye bot?</h2>
+    <p class="lead">Roz ke wahi-wahi sawaal aur appointment requests — sab automatic.</p>
+    <div class="grid">
+      <div class="feat"><div class="ic">📅</div><h3>Appointment book kare</h3><p>Naam → service → time poochta hai aur lead save kar leta hai. Aapko sirf call karke confirm karna hai.</p></div>
+      <div class="feat"><div class="ic">💬</div><h3>Sawaal ke jawab</h3><p>Timing, price, address, payment — customer poochhe, bot turant Hinglish me bataye.</p></div>
+      <div class="feat"><div class="ic">🔔</div><h3>Owner ko alert</h3><p>Nayi booking aate hi aapke WhatsApp pe notification — koi lead miss nahi.</p></div>
+      <div class="feat"><div class="ic">💸</div><h3>Reply bilkul free</h3><p>Keyword-based, koi AI cost nahi. WhatsApp pe inbound reply Meta bhi free rakhta hai.</p></div>
+      <div class="feat"><div class="ic">🔒</div><h3>Ban-safe & DPDP-safe</h3><p>Official WhatsApp Cloud API. Bot sirf naam/service/time leta hai — koi medical/sensitive data nahi.</p></div>
+      <div class="feat"><div class="ic">⚡</div><h3>5 min me setup</h3><p>Clinic/salon/restaurant ready templates. Bas details badlo, bot live.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section id="demo" style="background:#fff">
+  <div class="wrap">
+    <h2>Live Demo — abhi try karo 👇</h2>
+    <p class="lead">Yeh asli bot ki logic hai (City Care Clinic example). Neeche type karo ya chip dabao — jaise ek patient WhatsApp pe karega.</p>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="pbar">
+          <div class="av">🏥</div>
+          <div><div class="nm">City Care Clinic</div><div class="st">online • bot assistant</div></div>
+        </div>
+        <div class="chat" id="chat"></div>
+        <div class="chips" id="chips">
+          <span class="chip">Hello</span>
+          <span class="chip">appointment book karni hai</span>
+          <span class="chip">consultation ka price</span>
+          <span class="chip">timing kya hai</span>
+          <span class="chip">location</span>
+        </div>
+        <div class="inbar">
+          <input id="inp" placeholder="Message type karo…" autocomplete="off" />
+          <button id="send">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section>
+  <div class="wrap">
+    <h2>Kaise kaam karta hai</h2>
+    <p class="lead">Aapko kuch technical nahi karna — hum setup kar dete hain.</p>
+    <div class="steps">
+      <div class="step"><h3>Details do</h3><p>Business name, services, price, timing — bas itna.</p></div>
+      <div class="step"><h3>Hum jodते hain</h3><p>Aapke WhatsApp number pe official API se bot connect.</p></div>
+      <div class="step"><h3>Customer message kare</h3><p>Bot turant reply karta hai aur appointment leta hai.</p></div>
+      <div class="step"><h3>Aap paisa kamao</h3><p>Har lead aapke paas. Koi call miss nahi, koi customer nahi chhutta.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="price-wrap">
+  <div class="wrap">
+    <h2>Simple pricing</h2>
+    <p class="lead">7-din free trial. Kabhi bhi band kar sakte ho.</p>
+    <div class="prices">
+      <div class="plan">
+        <h3>Starter</h3>
+        <div class="amt">₹299<small>/mo</small></div>
+        <ul>
+          <li>1 WhatsApp number</li>
+          <li>Auto-reply (timing/price/address)</li>
+          <li>Appointment booking</li>
+          <li>1 dashboard user</li>
+        </ul>
+        <a href="#contact" class="btn ghost">Start karo</a>
+      </div>
+      <div class="plan pop">
+        <div class="tag">POPULAR</div>
+        <h3>Pro</h3>
+        <div class="amt">₹799<small>/mo</small></div>
+        <ul>
+          <li>Sab Starter wala</li>
+          <li>Lead/booking capture + owner alert</li>
+          <li>100 broadcast msg/mo</li>
+          <li>Basic analytics</li>
+        </ul>
+        <a href="#contact" class="btn">Start karo</a>
+      </div>
+      <div class="plan">
+        <h3>Business</h3>
+        <div class="amt">₹1,999<small>/mo</small></div>
+        <ul>
+          <li>Sab Pro wala</li>
+          <li>Multi-location / number</li>
+          <li>AI reply add-on</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#contact" class="btn ghost">Baat karo</a>
+      </div>
+    </div>
+    <div class="note">💡 <b>Honest note:</b> paisa dheere aata hai — pehle 1-2 free pilot (jaise apna clinic) se demo + testimonial banao, phir aas-paas ke clinic/salon ko becho. Setup free, running cost lagbhag ₹0.</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Apne business ke liye bot chahiye?</h2>
+      <p>7-din free try karo. Setup hum karenge.</p>
+      <!-- Apna WhatsApp number yahan daalo (91 + number, no +). -->
+      <a href="https://wa.me/91XXXXXXXXXX?text=Mujhe%20WhatsApp%20bot%20chahiye" class="btn" style="background:#fff;color:var(--green-d)">💬 WhatsApp pe baat karo</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built by Pradeep · WhatsApp Front-Desk Bot · Replies shown are a browser demo (real bot runs on official WhatsApp Cloud API)
+</footer>
+
+<script>
+/* ---- Bot logic ported from bot.py (clinic config) ---- */
+const CONFIG = {
+  business_name:"City Care Clinic",
+  greeting:"Namaste ji! 🙏 City Care Clinic me aapka swagat hai. Main appointment book karne aur aapke sawaalon me madad karunga.",
+  timing:"🕒 OPD timing: *Mon–Sat 10:00 AM – 7:00 PM*. Sunday closed.",
+  address:"📍 City Care Clinic, Near Bus Stand, Sector 12, Gurgaon.\nMaps: https://maps.google.com/?q=City+Care+Clinic",
+  phone:"📞 Call/WhatsApp: +91-98765-43210",
+  payment:"💳 Payment: Cash, UPI (citycare@upi), Card — sab chalta hai.",
+  services:[
+    {name:"General Consultation (Physician)",price:300},
+    {name:"Skin & Hair Consultation",price:500},
+    {name:"Dental Checkup",price:400},
+    {name:"Child Specialist (Pediatric)",price:400},
+    {name:"Blood Test / Lab Sample",price:200}
+  ],
+  booking:{label:"appointment",
+    ask_name:"Zaroor! 📅 Appointment ke liye — aapka *naam* bataiye 🙂",
+    ask_service:"Kis ke liye appointment chahiye? Neeche list se *number* ya naam bhejein:",
+    ask_time:"Kis *din aur time* aana chahenge? (jaise: 'Kal shaam 5 baje' ya 'Monday morning')",
+    confirm_note:"Hamara staff aapko thodi der me call karke appointment *confirm* karega. 🙏"},
+  closing_line:"Appointment ke liye *appointment* likhein 👇"
+};
+
+const INTENTS = {
+  greeting:["hi","hello","hey","namaste","namaskar","hii","helo","start","hlo"],
+  timing:["timing","time","khula","khule","open","band","kab","baje","hours","kitne baje","closing","opening"],
+  price:["price","rate","kitne","kitna","paise","paisa","cost","kimat","daam","rs","rupee","₹","charges","fees","fee"],
+  appointment:["appointment","book","booking","slot","checkup","check up","consult","consultation","appoint","dikhana","dikhna","milna","visit","aana hai","aana chahta"],
+  menu:["menu","list","services","service","kya milta","items","facility","kya kya","available"],
+  address:["address","location","kaha","kahan","pata","map","reach","kidhar","clinic kaha"],
+  payment:["payment","pay","upi","cash","card","gpay","paytm","phonepe","online"],
+  order:["order","chahiye","want","chaiye","de do","dena","lena"],
+  phone:["call","phone","number","contact","mobile","sampark"],
+  thanks:["thanks","thank","dhanyavad","shukriya","thanku","thx","tq"]
+};
+const CANCEL = new Set(["cancel","ruko","stop","rehne do","nahi","chodo"]);
+
+function normalize(t){t=t.toLowerCase().trim();t=t.replace(/[^\w\s₹]/gu," ");t=t.replace(/\s+/g," ");return t;}
+function detectIntent(t){
+  const n=normalize(t), p=" "+n+" ";
+  for(const [intent,kws] of Object.entries(INTENTS)){
+    for(const kw of kws){
+      if(kw.includes(" ")||kw==="₹"){ if(n.includes(kw)) return intent; }
+      else if(p.includes(" "+kw+" ")) return intent;
+    }
+  }
+  return null;
+}
+function catalog(){return CONFIG.services;}
+function formatCatalog(){let s="📋 *Services*";catalog().forEach(r=>s+="\n• "+r.name+" — ₹"+r.price);return s;}
+function numberedCatalog(){return catalog().map((r,i)=>(i+1)+". "+r.name).join("\n");}
+function footer(){return "\nTaip kijiye:\n👉 *services* • *price* • *timing* • *address* • *appointment*";}
+
+let session={};
+function reply(text){
+  if(session.flow){
+    const n=normalize(text);
+    if(CANCEL.has(n)){session={};return "Koi baat nahi 🙏 Jab chahein type kijiye."+footer();}
+    if(session.step==="name"){session.data.name=text.trim();session.step="service";return CONFIG.booking.ask_service+"\n\n"+numberedCatalog();}
+    if(session.step==="service"){
+      const items=catalog();const c=text.trim();
+      session.data.service=(/^\d+$/.test(c)&&+c>=1&&+c<=items.length)?items[+c-1].name:c;
+      session.step="time";return CONFIG.booking.ask_time;
+    }
+    if(session.step==="time"){
+      session.data.time=text.trim();const d=session.data;session={};
+      return "✅ *Appointment request mil gayi!*\n\n👤 Naam: "+d.name+"\n🩺 Ke liye: "+d.service+"\n🕒 Time: "+d.time+"\n\n"+CONFIG.booking.confirm_note;
+    }
+  }
+  const intent=detectIntent(text);
+  if(intent==="appointment"||intent==="order"){session={flow:1,step:"name",data:{}};return CONFIG.booking.ask_name;}
+  if(intent==="greeting")return CONFIG.greeting+footer();
+  if(intent==="price"||intent==="menu")return formatCatalog()+"\n\n"+CONFIG.closing_line;
+  if(intent==="timing")return CONFIG.timing;
+  if(intent==="address")return CONFIG.address;
+  if(intent==="payment")return CONFIG.payment;
+  if(intent==="phone")return CONFIG.phone;
+  if(intent==="thanks")return "Aapka dhanyavad! 🙏 "+CONFIG.business_name+" me firse aaiyega.";
+  return "Namaste! 🙏 Main "+CONFIG.business_name+" ka assistant hoon. Aapki baat samajh nahi aayi."+footer();
+}
+
+/* ---- render (bold *text* -> <b>) ---- */
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function fmt(s){return esc(s).replace(/\*(.+?)\*/g,"<b>$1</b>");}
+function bubble(where,text,cls){const d=document.createElement("div");d.className="msg "+cls;d.innerHTML=fmt(text);where.appendChild(d);where.scrollTop=where.scrollHeight;}
+
+const chat=document.getElementById("chat");
+const inp=document.getElementById("inp");
+function botSay(where,t){bubble(where,t,"in");}
+function send(){
+  const t=inp.value.trim();if(!t)return;
+  bubble(chat,t,"out");inp.value="";
+  setTimeout(()=>botSay(chat,reply(t)),350);
+}
+document.getElementById("send").onclick=send;
+inp.addEventListener("keydown",e=>{if(e.key==="Enter")send();});
+document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{inp.value=c.textContent;send();});
+botSay(chat,CONFIG.greeting+footer());
+
+/* preview phone (static teaser) */
+const pv=document.getElementById("previewChat");
+[["in","Namaste ji! 🙏 City Care Clinic me swagat hai."],
+ ["out","appointment book karni hai"],
+ ["in","Zaroor! 📅 Aapka *naam* bataiye 🙂"],
+ ["out","Rahul Sharma"],
+ ["in","Kis ke liye? 1. General Consultation  2. Skin & Hair …"],
+ ["out","2"],
+ ["in","✅ *Appointment request mil gayi!* Staff call karke confirm karega 🙏"]
+].forEach(([c,t])=>bubble(pv,t,c));
+</script>
+</body>
+</html>
