@@ -4,11 +4,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>WhatsApp Bot for Clinics & Salons — Auto-Reply + Appointment Booking | FrontDesk Bot</title>
-<meta name="description" content="An automated WhatsApp chatbot for clinics, salons and coaching centres in India. Answers customer questions 24x7 and books appointments automatically. Free replies, official WhatsApp API, no medical data. Plans from ₹299/month." />
+<meta name="description" content="An automated WhatsApp chatbot for clinics, salons and coaching centres in India. Answers customer questions 24x7 and books appointments automatically. Free replies on the official WhatsApp API. Plans from ₹299/month." />
 <meta name="keywords" content="whatsapp bot for clinic, whatsapp appointment booking bot, whatsapp chatbot for salon, whatsapp auto reply bot india, clinic whatsapp automation, appointment reminder bot, whatsapp business bot india, salon booking bot, coaching centre whatsapp bot, whatsapp front desk automation, automated whatsapp replies, doctor appointment whatsapp bot" />
 <meta name="author" content="Pradeep Prajapati" />
 <meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#128C7E" />
 <link rel="canonical" href="https://pradeepprajapati9.github.io/whatsapp_bot/" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>" />
 
 <!-- Open Graph (for WhatsApp/Facebook/LinkedIn link previews) -->
 <meta property="og:type" content="website" />
@@ -48,7 +50,7 @@
   "mainEntity": [
     { "@type": "Question", "name": "What is a WhatsApp bot for a clinic or salon?", "acceptedAnswer": { "@type": "Answer", "text": "It is an automated assistant on your business WhatsApp number that replies to common customer questions (timings, prices, address) and books appointments 24x7, so your staff does not have to answer every message manually." } },
     { "@type": "Question", "name": "Do customers need to install anything?", "acceptedAnswer": { "@type": "Answer", "text": "No. Customers just message your normal WhatsApp number and the bot replies instantly. Nothing to install or download." } },
-    { "@type": "Question", "name": "Is it safe and allowed by WhatsApp?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It runs on the official WhatsApp Cloud API from Meta, not an unofficial hack, so your number stays safe. It also collects only name, service and time, never medical or sensitive data, keeping it DPDP-compliant." } },
+    { "@type": "Question", "name": "Is it safe and allowed by WhatsApp?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It runs on the official WhatsApp Cloud API from Meta, not an unofficial tool, so your number stays safe, and your customers' information is kept private and secure." } },
     { "@type": "Question", "name": "How much does it cost?", "acceptedAnswer": { "@type": "Answer", "text": "Plans start at ₹299/month for a single number, with Pro at ₹799/month and Business at ₹1,999/month. A 7-day free trial is available." } },
     { "@type": "Question", "name": "Which businesses is it for?", "acceptedAnswer": { "@type": "Answer", "text": "Clinics, dental and skin practices, salons, spas, coaching and tuition centres, and any local business that takes appointments or bookings over WhatsApp." } }
   ]
@@ -61,6 +63,7 @@
     --chat-bg:#efeae2;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
   a{color:var(--green-d);text-decoration:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
@@ -69,9 +72,10 @@
   .btn.ghost{background:#fff;color:var(--green-d);border:2px solid var(--green)}
 
   /* header */
-  header{background:linear-gradient(135deg,#075E54,#128C7E);color:#fff;padding:14px 0}
+  header{background:linear-gradient(135deg,#075E54,#128C7E);color:#fff;padding:14px 0;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.18)}
   header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
-  .logo{font-weight:800;font-size:19px;display:flex;align-items:center;gap:8px}
+  .logo{font-weight:800;font-size:19px;display:flex;align-items:center;gap:8px;color:#fff}
+  .logo:hover{opacity:.9}
 
   /* hero */
   .hero{background:linear-gradient(135deg,#128C7E,#25D366);color:#fff;padding:56px 0 64px}
@@ -102,7 +106,7 @@
   .chip:hover{background:var(--green);color:#fff}
 
   /* sections */
-  section{padding:56px 0}
+  section{padding:56px 0;scroll-margin-top:68px}
   h2{font-size:30px;text-align:center;margin-bottom:8px;letter-spacing:-.5px}
   .lead{text-align:center;color:var(--muted);max-width:620px;margin:0 auto 36px;font-size:17px}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -158,7 +162,7 @@
 
 <header>
   <div class="wrap">
-    <div class="logo">💬 FrontDesk Bot</div>
+    <a class="logo" href="./" aria-label="FrontDesk Bot — home">💬 FrontDesk Bot</a>
     <a href="#pricing" class="btn ghost" style="padding:8px 18px;font-size:14px">Pricing</a>
   </div>
 </header>
@@ -174,9 +178,9 @@
         <a href="#pricing" class="btn ghost">See pricing</a>
       </div>
       <div class="badges">
-        <span>✅ Free replies (no AI cost)</span>
-        <span>🔒 Official WhatsApp API</span>
-        <span>⚖️ No medical data (DPDP-safe)</span>
+        <span>⚡ Replies in seconds, 24×7</span>
+        <span>📅 Books appointments automatically</span>
+        <span>🔒 Official &amp; secure WhatsApp API</span>
       </div>
     </div>
     <div>
@@ -204,7 +208,7 @@
       <div class="feat"><div class="ic">💬</div><h3>Answers questions</h3><p>Timings, prices, address, payment — the customer asks, the bot replies instantly.</p></div>
       <div class="feat"><div class="ic">🔔</div><h3>Owner alerts</h3><p>Get a WhatsApp notification the moment a booking comes in. No lead ever missed.</p></div>
       <div class="feat"><div class="ic">💸</div><h3>Replies are free</h3><p>Keyword-based, so there is no AI cost per message. Inbound replies are free on WhatsApp too.</p></div>
-      <div class="feat"><div class="ic">🔒</div><h3>Ban-safe &amp; DPDP-safe</h3><p>Runs on the official WhatsApp Cloud API. Collects only name, service and time — never medical data.</p></div>
+      <div class="feat"><div class="ic">🔒</div><h3>Safe &amp; secure</h3><p>Runs on the official WhatsApp Cloud API, so your number stays safe and your customers' details stay private.</p></div>
       <div class="feat"><div class="ic">🌐</div><h3>Hindi &amp; English</h3><p>Understands customers in both Hindi and English, so no one is left out.</p></div>
     </div>
   </div>
@@ -231,7 +235,7 @@
         </div>
         <div class="inbar">
           <input id="inp" placeholder="Type a message…" autocomplete="off" />
-          <button id="send">➤</button>
+          <button id="send" aria-label="Send message">➤</button>
         </div>
       </div>
     </div>
@@ -304,7 +308,7 @@
     <div class="faq">
       <details open><summary>What is a WhatsApp bot for a clinic or salon?</summary><p>It is an automated assistant on your business WhatsApp number that replies to common customer questions — timings, prices, address — and books appointments 24×7, so your staff does not have to answer every message manually.</p></details>
       <details><summary>Do customers need to install anything?</summary><p>No. Customers just message your normal WhatsApp number and the bot replies instantly. There is nothing to install or download.</p></details>
-      <details><summary>Is it safe and allowed by WhatsApp?</summary><p>Yes. It runs on the official WhatsApp Cloud API from Meta — not an unofficial hack — so your number stays safe. It also collects only name, service and time, never medical or sensitive data, keeping it DPDP-compliant.</p></details>
+      <details><summary>Is it safe and allowed by WhatsApp?</summary><p>Yes. It runs on the official WhatsApp Cloud API from Meta — not an unofficial tool — so your number stays safe, and your customers' information is kept private and secure.</p></details>
       <details><summary>How much does it cost?</summary><p>Plans start at ₹299/month for a single number, with Pro at ₹799/month and Business at ₹1,999/month. A 7-day free trial is available.</p></details>
       <details><summary>Which businesses is it for?</summary><p>Clinics, dental and skin practices, salons, spas, coaching and tuition centres — any local business that takes appointments or bookings over WhatsApp.</p></details>
     </div>
