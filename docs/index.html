@@ -3,8 +3,57 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>WhatsApp Front-Desk Bot — Clinics & Salons | Auto-reply + Appointments</title>
-<meta name="description" content="A WhatsApp bot that answers your customers 24x7 and books appointments automatically. For clinics, salons, coaching centres. Free replies, no medical data, easy setup." />
+<title>WhatsApp Bot for Clinics & Salons — Auto-Reply + Appointment Booking | FrontDesk Bot</title>
+<meta name="description" content="An automated WhatsApp chatbot for clinics, salons and coaching centres in India. Answers customer questions 24x7 and books appointments automatically. Free replies, official WhatsApp API, no medical data. Plans from ₹299/month." />
+<meta name="keywords" content="whatsapp bot for clinic, whatsapp appointment booking bot, whatsapp chatbot for salon, whatsapp auto reply bot india, clinic whatsapp automation, appointment reminder bot, whatsapp business bot india, salon booking bot, coaching centre whatsapp bot, whatsapp front desk automation, automated whatsapp replies, doctor appointment whatsapp bot" />
+<meta name="author" content="Pradeep Prajapati" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://pradeepprajapati9.github.io/whatsapp_bot/" />
+
+<!-- Open Graph (for WhatsApp/Facebook/LinkedIn link previews) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="WhatsApp Bot for Clinics & Salons — Auto-Reply + Appointment Booking" />
+<meta property="og:description" content="Your WhatsApp answers customers 24x7 and books appointments on its own. For clinics, salons & coaching centres. Plans from ₹299/mo." />
+<meta property="og:url" content="https://pradeepprajapati9.github.io/whatsapp_bot/" />
+<meta property="og:site_name" content="FrontDesk Bot" />
+<meta property="og:locale" content="en_IN" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="WhatsApp Bot for Clinics & Salons — Auto-Reply + Appointments" />
+<meta name="twitter:description" content="Answers customers 24x7 and books appointments automatically. Official WhatsApp API. From ₹299/mo." />
+
+<!-- Structured data: the product + its plans (helps Google understand & show it) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "FrontDesk Bot — WhatsApp Bot for Clinics & Salons",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "WhatsApp (Cloud API), Web",
+  "description": "An automated WhatsApp chatbot for clinics, salons and coaching centres that answers customer questions 24x7 and books appointments automatically.",
+  "url": "https://pradeepprajapati9.github.io/whatsapp_bot/",
+  "inLanguage": ["en", "hi"],
+  "offers": [
+    { "@type": "Offer", "name": "Starter", "price": "299", "priceCurrency": "INR", "description": "Auto-reply and appointment booking for one WhatsApp number." },
+    { "@type": "Offer", "name": "Pro", "price": "799", "priceCurrency": "INR", "description": "Adds lead capture, owner alerts, broadcasts and basic analytics." },
+    { "@type": "Offer", "name": "Business", "price": "1999", "priceCurrency": "INR", "description": "Multi-location, AI reply add-on and priority support." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is a WhatsApp bot for a clinic or salon?", "acceptedAnswer": { "@type": "Answer", "text": "It is an automated assistant on your business WhatsApp number that replies to common customer questions (timings, prices, address) and books appointments 24x7, so your staff does not have to answer every message manually." } },
+    { "@type": "Question", "name": "Do customers need to install anything?", "acceptedAnswer": { "@type": "Answer", "text": "No. Customers just message your normal WhatsApp number and the bot replies instantly. Nothing to install or download." } },
+    { "@type": "Question", "name": "Is it safe and allowed by WhatsApp?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It runs on the official WhatsApp Cloud API from Meta, not an unofficial hack, so your number stays safe. It also collects only name, service and time, never medical or sensitive data, keeping it DPDP-compliant." } },
+    { "@type": "Question", "name": "How much does it cost?", "acceptedAnswer": { "@type": "Answer", "text": "Plans start at ₹299/month for a single number, with Pro at ₹799/month and Business at ₹1,999/month. A 7-day free trial is available." } },
+    { "@type": "Question", "name": "Which businesses is it for?", "acceptedAnswer": { "@type": "Answer", "text": "Clinics, dental and skin practices, salons, spas, coaching and tuition centres, and any local business that takes appointments or bookings over WhatsApp." } }
+  ]
+}
+</script>
 <style>
   :root{
     --green:#25D366; --green-d:#128C7E; --ink:#0b141a; --muted:#667781;
@@ -85,7 +134,15 @@
   .cta-band h2{color:#fff}
   .cta-band p{opacity:.92;margin-bottom:22px}
 
-  .note{background:#fff8e1;border:1px solid #ffe6a1;border-radius:14px;padding:16px 18px;font-size:14px;color:#7a5b00;max-width:760px;margin:26px auto 0}
+  /* faq */
+  .faq{max-width:760px;margin:0 auto}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px 18px;margin-bottom:12px}
+  .faq summary{font-weight:700;font-size:16px;cursor:pointer;padding:14px 0;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--green);font-size:22px;font-weight:800}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{color:var(--muted);font-size:15px;padding:0 0 16px}
+
   footer{text-align:center;color:var(--muted);font-size:13px;padding:30px 0}
 
   @media(max-width:860px){
@@ -110,11 +167,11 @@
 <div class="hero">
   <div class="wrap">
     <div>
-      <h1>Aapka WhatsApp khud jawab de — aur appointment book kare.</h1>
-      <p class="sub">Clinic, salon, coaching ke liye ek WhatsApp bot jo customers ke sawaal 24×7 answer karta hai aur appointment/lead khud capture karta hai. Aap so rahe ho, bot kaam kar raha hai.</p>
+      <h1>Your WhatsApp answers customers — and books appointments — on its own.</h1>
+      <p class="sub">A WhatsApp bot for clinics, salons and coaching centres that replies to customer questions 24×7 and captures every appointment automatically. You rest — the bot keeps working.</p>
       <div class="cta">
-        <a href="#demo" class="btn">▶ Live Demo try karo</a>
-        <a href="#pricing" class="btn ghost">Pricing dekho</a>
+        <a href="#demo" class="btn">▶ Try the live demo</a>
+        <a href="#pricing" class="btn ghost">See pricing</a>
       </div>
       <div class="badges">
         <span>✅ Free replies (no AI cost)</span>
@@ -140,15 +197,15 @@
 <!-- FEATURES -->
 <section>
   <div class="wrap">
-    <h2>Kya karta hai ye bot?</h2>
-    <p class="lead">Roz ke wahi-wahi sawaal aur appointment requests — sab automatic.</p>
+    <h2>What does the bot do?</h2>
+    <p class="lead">The same repeat questions and appointment requests — all handled automatically.</p>
     <div class="grid">
-      <div class="feat"><div class="ic">📅</div><h3>Appointment book kare</h3><p>Naam → service → time poochta hai aur lead save kar leta hai. Aapko sirf call karke confirm karna hai.</p></div>
-      <div class="feat"><div class="ic">💬</div><h3>Sawaal ke jawab</h3><p>Timing, price, address, payment — customer poochhe, bot turant Hinglish me bataye.</p></div>
-      <div class="feat"><div class="ic">🔔</div><h3>Owner ko alert</h3><p>Nayi booking aate hi aapke WhatsApp pe notification — koi lead miss nahi.</p></div>
-      <div class="feat"><div class="ic">💸</div><h3>Reply bilkul free</h3><p>Keyword-based, koi AI cost nahi. WhatsApp pe inbound reply Meta bhi free rakhta hai.</p></div>
-      <div class="feat"><div class="ic">🔒</div><h3>Ban-safe & DPDP-safe</h3><p>Official WhatsApp Cloud API. Bot sirf naam/service/time leta hai — koi medical/sensitive data nahi.</p></div>
-      <div class="feat"><div class="ic">⚡</div><h3>5 min me setup</h3><p>Clinic/salon/restaurant ready templates. Bas details badlo, bot live.</p></div>
+      <div class="feat"><div class="ic">📅</div><h3>Books appointments</h3><p>Asks name → service → time and saves the lead. You just call to confirm.</p></div>
+      <div class="feat"><div class="ic">💬</div><h3>Answers questions</h3><p>Timings, prices, address, payment — the customer asks, the bot replies instantly.</p></div>
+      <div class="feat"><div class="ic">🔔</div><h3>Owner alerts</h3><p>Get a WhatsApp notification the moment a booking comes in. No lead ever missed.</p></div>
+      <div class="feat"><div class="ic">💸</div><h3>Replies are free</h3><p>Keyword-based, so there is no AI cost per message. Inbound replies are free on WhatsApp too.</p></div>
+      <div class="feat"><div class="ic">🔒</div><h3>Ban-safe &amp; DPDP-safe</h3><p>Runs on the official WhatsApp Cloud API. Collects only name, service and time — never medical data.</p></div>
+      <div class="feat"><div class="ic">🌐</div><h3>Hindi &amp; English</h3><p>Understands customers in both Hindi and English, so no one is left out.</p></div>
     </div>
   </div>
 </section>
@@ -156,8 +213,8 @@
 <!-- DEMO -->
 <section id="demo" style="background:#fff">
   <div class="wrap">
-    <h2>Live Demo — abhi try karo 👇</h2>
-    <p class="lead">Yeh asli bot ki logic hai (City Care Clinic example). Neeche type karo ya chip dabao — jaise ek patient WhatsApp pe karega.</p>
+    <h2>Live demo — try it now 👇</h2>
+    <p class="lead">This is the real bot logic (City Care Clinic example). Type below or tap a chip, just like a customer would on WhatsApp.</p>
     <div class="phone">
       <div class="phone-inner">
         <div class="pbar">
@@ -167,13 +224,13 @@
         <div class="chat" id="chat"></div>
         <div class="chips" id="chips">
           <span class="chip">Hello</span>
-          <span class="chip">appointment book karni hai</span>
-          <span class="chip">consultation ka price</span>
-          <span class="chip">timing kya hai</span>
+          <span class="chip">book an appointment</span>
+          <span class="chip">consultation price</span>
+          <span class="chip">timings</span>
           <span class="chip">location</span>
         </div>
         <div class="inbar">
-          <input id="inp" placeholder="Message type karo…" autocomplete="off" />
+          <input id="inp" placeholder="Type a message…" autocomplete="off" />
           <button id="send">➤</button>
         </div>
       </div>
@@ -184,13 +241,13 @@
 <!-- HOW -->
 <section>
   <div class="wrap">
-    <h2>Kaise kaam karta hai</h2>
-    <p class="lead">Aapko kuch technical nahi karna — hum setup kar dete hain.</p>
+    <h2>How it works</h2>
+    <p class="lead">Nothing technical for you — we handle the setup.</p>
     <div class="steps">
-      <div class="step"><h3>Details do</h3><p>Business name, services, price, timing — bas itna.</p></div>
-      <div class="step"><h3>Hum jodते hain</h3><p>Aapke WhatsApp number pe official API se bot connect.</p></div>
-      <div class="step"><h3>Customer message kare</h3><p>Bot turant reply karta hai aur appointment leta hai.</p></div>
-      <div class="step"><h3>Aap paisa kamao</h3><p>Har lead aapke paas. Koi call miss nahi, koi customer nahi chhutta.</p></div>
+      <div class="step"><h3>Share your details</h3><p>Business name, services, prices and timings. That's all.</p></div>
+      <div class="step"><h3>We connect it</h3><p>Your WhatsApp number is linked to the bot via the official API.</p></div>
+      <div class="step"><h3>Customers message</h3><p>The bot replies instantly and books appointments.</p></div>
+      <div class="step"><h3>You grow</h3><p>Every lead is yours. No missed calls, no lost customers.</p></div>
     </div>
   </div>
 </section>
@@ -199,44 +256,58 @@
 <section id="pricing" class="price-wrap">
   <div class="wrap">
     <h2>Simple pricing</h2>
-    <p class="lead">7-din free trial. Kabhi bhi band kar sakte ho.</p>
+    <p class="lead">7-day free trial. Cancel anytime.</p>
     <div class="prices">
       <div class="plan">
         <h3>Starter</h3>
         <div class="amt">₹299<small>/mo</small></div>
         <ul>
           <li>1 WhatsApp number</li>
-          <li>Auto-reply (timing/price/address)</li>
+          <li>Auto-reply (timings / price / address)</li>
           <li>Appointment booking</li>
           <li>1 dashboard user</li>
         </ul>
-        <a href="#contact" class="btn ghost">Start karo</a>
+        <a href="#contact" class="btn ghost">Get started</a>
       </div>
       <div class="plan pop">
         <div class="tag">POPULAR</div>
         <h3>Pro</h3>
         <div class="amt">₹799<small>/mo</small></div>
         <ul>
-          <li>Sab Starter wala</li>
-          <li>Lead/booking capture + owner alert</li>
-          <li>100 broadcast msg/mo</li>
+          <li>Everything in Starter</li>
+          <li>Lead / booking capture + owner alerts</li>
+          <li>100 broadcast messages / mo</li>
           <li>Basic analytics</li>
         </ul>
-        <a href="#contact" class="btn">Start karo</a>
+        <a href="#contact" class="btn">Get started</a>
       </div>
       <div class="plan">
         <h3>Business</h3>
         <div class="amt">₹1,999<small>/mo</small></div>
         <ul>
-          <li>Sab Pro wala</li>
+          <li>Everything in Pro</li>
           <li>Multi-location / number</li>
           <li>AI reply add-on</li>
           <li>Priority support</li>
         </ul>
-        <a href="#contact" class="btn ghost">Baat karo</a>
+        <a href="#contact" class="btn ghost">Talk to us</a>
       </div>
     </div>
-    <div class="note">💡 <b>Honest note:</b> paisa dheere aata hai — pehle 1-2 free pilot (jaise apna clinic) se demo + testimonial banao, phir aas-paas ke clinic/salon ko becho. Setup free, running cost lagbhag ₹0.</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:#fff">
+  <div class="wrap">
+    <h2>Frequently asked questions</h2>
+    <p class="lead">Everything you might want to know before getting started.</p>
+    <div class="faq">
+      <details open><summary>What is a WhatsApp bot for a clinic or salon?</summary><p>It is an automated assistant on your business WhatsApp number that replies to common customer questions — timings, prices, address — and books appointments 24×7, so your staff does not have to answer every message manually.</p></details>
+      <details><summary>Do customers need to install anything?</summary><p>No. Customers just message your normal WhatsApp number and the bot replies instantly. There is nothing to install or download.</p></details>
+      <details><summary>Is it safe and allowed by WhatsApp?</summary><p>Yes. It runs on the official WhatsApp Cloud API from Meta — not an unofficial hack — so your number stays safe. It also collects only name, service and time, never medical or sensitive data, keeping it DPDP-compliant.</p></details>
+      <details><summary>How much does it cost?</summary><p>Plans start at ₹299/month for a single number, with Pro at ₹799/month and Business at ₹1,999/month. A 7-day free trial is available.</p></details>
+      <details><summary>Which businesses is it for?</summary><p>Clinics, dental and skin practices, salons, spas, coaching and tuition centres — any local business that takes appointments or bookings over WhatsApp.</p></details>
+    </div>
   </div>
 </section>
 
@@ -244,27 +315,27 @@
 <section id="contact">
   <div class="wrap">
     <div class="cta-band">
-      <h2>Apne business ke liye bot chahiye?</h2>
-      <p>7-din free try karo. Setup hum karenge.</p>
-      <!-- Apna WhatsApp number yahan daalo (91 + number, no +). -->
-      <a href="https://wa.me/91XXXXXXXXXX?text=Mujhe%20WhatsApp%20bot%20chahiye" class="btn" style="background:#fff;color:var(--green-d)">💬 WhatsApp pe baat karo</a>
+      <h2>Want a bot for your business?</h2>
+      <p>Try it free for 7 days. We'll handle the setup.</p>
+      <!-- Put your WhatsApp number here (91 + number, no +). -->
+      <a href="https://wa.me/91XXXXXXXXXX?text=I%20want%20a%20WhatsApp%20bot%20for%20my%20business" class="btn" style="background:#fff;color:var(--green-d)">💬 Chat on WhatsApp</a>
     </div>
   </div>
 </section>
 
 <footer>
-  Built by Pradeep · WhatsApp Front-Desk Bot · Replies shown are a browser demo (real bot runs on official WhatsApp Cloud API)
+  Built by Pradeep · WhatsApp Front-Desk Bot · Replies shown are a browser demo (the real bot runs on the official WhatsApp Cloud API)
 </footer>
 
 <script>
-/* ---- Bot logic ported from bot.py (clinic config) ---- */
+/* ---- Bot logic ported from bot.py (clinic config, English demo) ---- */
 const CONFIG = {
   business_name:"City Care Clinic",
-  greeting:"Namaste ji! 🙏 City Care Clinic me aapka swagat hai. Main appointment book karne aur aapke sawaalon me madad karunga.",
-  timing:"🕒 OPD timing: *Mon–Sat 10:00 AM – 7:00 PM*. Sunday closed.",
+  greeting:"Hello! 🙏 Welcome to City Care Clinic. I can help you book an appointment or answer your questions.",
+  timing:"🕒 OPD hours: *Mon–Sat, 10:00 AM – 7:00 PM*. Closed on Sunday.",
   address:"📍 City Care Clinic, Near Bus Stand, Sector 12, Gurgaon.\nMaps: https://maps.google.com/?q=City+Care+Clinic",
   phone:"📞 Call/WhatsApp: +91-98765-43210",
-  payment:"💳 Payment: Cash, UPI (citycare@upi), Card — sab chalta hai.",
+  payment:"💳 Payment: Cash, UPI (citycare@upi), Card — all accepted.",
   services:[
     {name:"General Consultation (Physician)",price:300},
     {name:"Skin & Hair Consultation",price:500},
@@ -273,26 +344,28 @@ const CONFIG = {
     {name:"Blood Test / Lab Sample",price:200}
   ],
   booking:{label:"appointment",
-    ask_name:"Zaroor! 📅 Appointment ke liye — aapka *naam* bataiye 🙂",
-    ask_service:"Kis ke liye appointment chahiye? Neeche list se *number* ya naam bhejein:",
-    ask_time:"Kis *din aur time* aana chahenge? (jaise: 'Kal shaam 5 baje' ya 'Monday morning')",
-    confirm_note:"Hamara staff aapko thodi der me call karke appointment *confirm* karega. 🙏"},
-  closing_line:"Appointment ke liye *appointment* likhein 👇"
+    ask_name:"Sure! 📅 To book an appointment — what's your *name*? 🙂",
+    ask_service:"Which service is it for? Reply with a *number* or name from the list below:",
+    ask_time:"What *day and time* would you like to come? (e.g. 'Tomorrow 5 PM' or 'Monday morning')",
+    confirm_note:"Our staff will call you shortly to *confirm* your appointment. 🙏"},
+  closing_line:"Type *appointment* to book 👇"
 };
 
+/* Recognition keywords stay bilingual (English + Hindi) so real customers in
+   either language are understood — this is invisible to the viewer. */
 const INTENTS = {
   greeting:["hi","hello","hey","namaste","namaskar","hii","helo","start","hlo"],
-  timing:["timing","time","khula","khule","open","band","kab","baje","hours","kitne baje","closing","opening"],
-  price:["price","rate","kitne","kitna","paise","paisa","cost","kimat","daam","rs","rupee","₹","charges","fees","fee"],
-  appointment:["appointment","book","booking","slot","checkup","check up","consult","consultation","appoint","dikhana","dikhna","milna","visit","aana hai","aana chahta"],
-  menu:["menu","list","services","service","kya milta","items","facility","kya kya","available"],
-  address:["address","location","kaha","kahan","pata","map","reach","kidhar","clinic kaha"],
+  timing:["timing","timings","time","hours","open","closed","when","khula","band","kab","baje","kitne baje"],
+  price:["price","prices","rate","cost","fees","fee","charges","how much","kitne","kitna","₹"],
+  appointment:["appointment","book","booking","slot","checkup","check up","consult","consultation","appoint","visit","dikhana","milna"],
+  menu:["menu","list","services","service","facility","what do you","available"],
+  address:["address","location","where","map","reach","directions","kaha","kahan","pata"],
   payment:["payment","pay","upi","cash","card","gpay","paytm","phonepe","online"],
-  order:["order","chahiye","want","chaiye","de do","dena","lena"],
-  phone:["call","phone","number","contact","mobile","sampark"],
-  thanks:["thanks","thank","dhanyavad","shukriya","thanku","thx","tq"]
+  order:["order","want","need","chahiye"],
+  phone:["call","phone","number","contact","mobile"],
+  thanks:["thanks","thank","thankyou","thanku","thx","tq","dhanyavad","shukriya"]
 };
-const CANCEL = new Set(["cancel","ruko","stop","rehne do","nahi","chodo"]);
+const CANCEL = new Set(["cancel","stop","no","never mind","nahi"]);
 
 function normalize(t){t=t.toLowerCase().trim();t=t.replace(/[^\w\s₹]/gu," ");t=t.replace(/\s+/g," ");return t;}
 function detectIntent(t){
@@ -308,13 +381,13 @@ function detectIntent(t){
 function catalog(){return CONFIG.services;}
 function formatCatalog(){let s="📋 *Services*";catalog().forEach(r=>s+="\n• "+r.name+" — ₹"+r.price);return s;}
 function numberedCatalog(){return catalog().map((r,i)=>(i+1)+". "+r.name).join("\n");}
-function footer(){return "\nTaip kijiye:\n👉 *services* • *price* • *timing* • *address* • *appointment*";}
+function footer(){return "\nType:\n👉 *services* • *price* • *timings* • *address* • *appointment*";}
 
 let session={};
 function reply(text){
   if(session.flow){
     const n=normalize(text);
-    if(CANCEL.has(n)){session={};return "Koi baat nahi 🙏 Jab chahein type kijiye."+footer();}
+    if(CANCEL.has(n)){session={};return "No problem 🙏 Type whenever you're ready."+footer();}
     if(session.step==="name"){session.data.name=text.trim();session.step="service";return CONFIG.booking.ask_service+"\n\n"+numberedCatalog();}
     if(session.step==="service"){
       const items=catalog();const c=text.trim();
@@ -323,7 +396,7 @@ function reply(text){
     }
     if(session.step==="time"){
       session.data.time=text.trim();const d=session.data;session={};
-      return "✅ *Appointment request mil gayi!*\n\n👤 Naam: "+d.name+"\n🩺 Ke liye: "+d.service+"\n🕒 Time: "+d.time+"\n\n"+CONFIG.booking.confirm_note;
+      return "✅ *Appointment request received!*\n\n👤 Name: "+d.name+"\n🩺 For: "+d.service+"\n🕒 Time: "+d.time+"\n\n"+CONFIG.booking.confirm_note;
     }
   }
   const intent=detectIntent(text);
@@ -334,8 +407,8 @@ function reply(text){
   if(intent==="address")return CONFIG.address;
   if(intent==="payment")return CONFIG.payment;
   if(intent==="phone")return CONFIG.phone;
-  if(intent==="thanks")return "Aapka dhanyavad! 🙏 "+CONFIG.business_name+" me firse aaiyega.";
-  return "Namaste! 🙏 Main "+CONFIG.business_name+" ka assistant hoon. Aapki baat samajh nahi aayi."+footer();
+  if(intent==="thanks")return "Thank you! 🙏 Visit "+CONFIG.business_name+" again.";
+  return "Hello! 🙏 I'm the "+CONFIG.business_name+" assistant. I didn't quite get that."+footer();
 }
 
 /* ---- render (bold *text* -> <b>) ---- */
@@ -358,13 +431,13 @@ botSay(chat,CONFIG.greeting+footer());
 
 /* preview phone (static teaser) */
 const pv=document.getElementById("previewChat");
-[["in","Namaste ji! 🙏 City Care Clinic me swagat hai."],
- ["out","appointment book karni hai"],
- ["in","Zaroor! 📅 Aapka *naam* bataiye 🙂"],
+[["in","Hello! 🙏 Welcome to City Care Clinic."],
+ ["out","book an appointment"],
+ ["in","Sure! 📅 What's your *name*? 🙂"],
  ["out","Rahul Sharma"],
- ["in","Kis ke liye? 1. General Consultation  2. Skin & Hair …"],
+ ["in","Which service? 1. General Consultation  2. Skin & Hair …"],
  ["out","2"],
- ["in","✅ *Appointment request mil gayi!* Staff call karke confirm karega 🙏"]
+ ["in","✅ *Appointment request received!* Our staff will call to confirm 🙏"]
 ].forEach(([c,t])=>bubble(pv,t,c));
 </script>
 </body>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pradeepprajapati9.github.io/whatsapp_bot/sitemap.xml
