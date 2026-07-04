@@ -1,0 +1,41 @@
+{
+  "business_name": "Sharma Ji Restaurant",
+  "business_type": "restaurant",
+  "language_note": "Replies are in Hinglish so local customers understand easily.",
+
+  "greeting": "Namaste ji! 🙏 {business_name} me aapka swagat hai.",
+
+  "timing": "🕒 Hum roz *11:00 AM se 11:00 PM* tak khule rehte hain (Monday to Sunday).",
+
+  "address": "📍 Hamara pata: Shop No. 4, Main Market, Sector 12, Gurgaon.\nGoogle Maps: https://maps.google.com/?q=Sharma+Ji+Restaurant",
+
+  "phone": "📞 Call/WhatsApp: +91-98765-43210",
+
+  "delivery": "🛵 Haan ji, home delivery available hai (2 km ke andar free, uske baad ₹20).",
+
+  "payment": "💳 Payment: Cash, UPI (sharmaji@upi), Card — sab chalta hai.",
+
+  "menu": [
+    { "item": "Paneer Butter Masala", "price": 180 },
+    { "item": "Dal Makhani", "price": 140 },
+    { "item": "Veg Thali", "price": 120 },
+    { "item": "Butter Naan", "price": 30 },
+    { "item": "Jeera Rice", "price": 90 },
+    { "item": "Gulab Jamun (2 pc)", "price": 50 }
+  ],
+
+  "booking": {
+    "enabled": true,
+    "label": "order",
+    "ask_name": "🛒 Order ke liye — pehle aapka *naam* bataiye 🙂",
+    "ask_service": "Kya order karna chahenge? Neeche menu se *number* ya naam bhejein (ya seedha likhein, jaise '2 Butter Naan'):",
+    "ask_time": "Delivery ya pickup? Aur kis *time* chahiye? (jaise: 'Abhi delivery' ya '8 baje pickup')",
+    "confirm_note": "Hum aapka order confirm karke bhej denge. 🙏"
+  },
+
+  "order_instructions": "🛒 Order karne ke liye bas apne items aur quantity bata dijiye, jaise:\n'2 Butter Naan aur 1 Dal Makhani'.",
+
+  "closing_line": "Aur kuch chahiye ho to type kijiye 👇",
+
+  "owner_wa": ""
+}

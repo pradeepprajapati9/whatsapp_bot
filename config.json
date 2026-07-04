@@ -1,0 +1,36 @@
+{
+  "business_name": "City Care Clinic",
+  "business_type": "clinic",
+  "language_note": "Replies are in Hinglish so local patients understand easily. DPDP-safe: bot never asks for symptoms/medical details.",
+
+  "greeting": "Namaste ji! 🙏 {business_name} me aapka swagat hai. Main appointment book karne aur aapke sawaalon me madad karunga.",
+
+  "timing": "🕒 OPD timing: *Mon–Sat 10:00 AM – 7:00 PM*. Sunday closed.",
+
+  "address": "📍 Hamara pata: City Care Clinic, Near Bus Stand, Sector 12, Gurgaon.\nGoogle Maps: https://maps.google.com/?q=City+Care+Clinic",
+
+  "phone": "📞 Call/WhatsApp: +91-98765-43210",
+
+  "payment": "💳 Payment: Cash, UPI (citycare@upi), Card — sab chalta hai.",
+
+  "services": [
+    { "name": "General Consultation (Physician)", "price": 300 },
+    { "name": "Skin & Hair Consultation", "price": 500 },
+    { "name": "Dental Checkup", "price": 400 },
+    { "name": "Child Specialist (Pediatric)", "price": 400 },
+    { "name": "Blood Test / Lab Sample", "price": 200 }
+  ],
+
+  "booking": {
+    "enabled": true,
+    "label": "appointment",
+    "ask_name": "Zaroor! 📅 Appointment ke liye — aapka *naam* bataiye 🙂",
+    "ask_service": "Kis ke liye appointment chahiye? Neeche list se *number* ya naam bhejein:",
+    "ask_time": "Kis *din aur time* aana chahenge? (jaise: 'Kal shaam 5 baje' ya 'Monday morning')",
+    "confirm_note": "Hamara staff aapko thodi der me call karke appointment *confirm* karega. 🙏"
+  },
+
+  "closing_line": "Appointment ke liye *appointment* likhein 👇",
+
+  "owner_wa": ""
+}

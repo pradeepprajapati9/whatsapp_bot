@@ -1,0 +1,36 @@
+{
+  "business_name": "Glow Unisex Salon",
+  "business_type": "salon",
+  "language_note": "Hinglish replies for local customers.",
+
+  "greeting": "Hi! 💇 {business_name} me aapka swagat hai. Appointment book karun ya rate list bhejun?",
+
+  "timing": "🕒 Timing: *Daily 10:00 AM – 9:00 PM* (Tuesday closed).",
+
+  "address": "📍 Glow Unisex Salon, Main Market, Sector 12, Gurgaon.\nGoogle Maps: https://maps.google.com/?q=Glow+Unisex+Salon",
+
+  "phone": "📞 Call/WhatsApp: +91-98765-43211",
+
+  "payment": "💳 Cash, UPI (glow@upi), Card — sab chalta hai.",
+
+  "services": [
+    { "name": "Haircut (Men)", "price": 150 },
+    { "name": "Haircut + Beard", "price": 250 },
+    { "name": "Hair Spa", "price": 800 },
+    { "name": "Facial (Basic)", "price": 600 },
+    { "name": "Bridal Makeup", "price": 5000 }
+  ],
+
+  "booking": {
+    "enabled": true,
+    "label": "appointment",
+    "ask_name": "Zaroor! 💇 Appointment ke liye — aapka *naam* bataiye 🙂",
+    "ask_service": "Kaunsi service chahiye? Neeche list se *number* ya naam bhejein:",
+    "ask_time": "Kis *din aur time* aana chahenge? (jaise: 'Aaj 6 baje' ya 'Sunday 12 baje')",
+    "confirm_note": "Hum aapko call karke slot *confirm* kar denge. 🙏"
+  },
+
+  "closing_line": "Appointment ke liye *appointment* likhein 👇",
+
+  "owner_wa": ""
+}
