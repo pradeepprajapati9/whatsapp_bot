@@ -13,6 +13,16 @@ reply kare **aur appointment/order book kare** — 24x7, free.
 
 ---
 
+## 🚀 Live kahan chalta hai
+
+Production ab **Supabase Edge Function** pe hai (`supabase/functions/whatsapp/`), Render pe nahi. Render free plan me 750 instance-hours/month milte hain aur ek service ko 24/7 chalane me hi ~744 lag jaate the, isliye bot har mahine suspend ho jaata tha. Supabase pe hour-limit nahi, sleep nahi, aur leads Postgres me save hote hain (`appointments.json` redeploy pe udd jaata tha).
+
+Deploy steps: **[DEPLOY_SUPABASE.md](DEPLOY_SUPABASE.md)**
+
+Neeche wali Python files (`app.py`, `bot.py`, `store.py`) offline testing (`test_bot.py`) aur reference ke liye hain — TypeScript port unhi ka 1:1 hai.
+
+---
+
 ## Files
 
 | File | Kya karta hai |

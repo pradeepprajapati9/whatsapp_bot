@@ -1,0 +1,10 @@
+# Minimal Supabase CLI config. The CLI fills in defaults for anything absent.
+# project_id is just a local label; `supabase link --project-ref <REF>` is what
+# binds this folder to the real project.
+project_id = "whatsapp-frontdesk-bot"
+
+[functions.whatsapp]
+# Meta calls the webhook without a Supabase JWT, so auth must be off here.
+# Deploy still passes --no-verify-jwt (see DEPLOY_SUPABASE.md) in case an
+# older CLI ignores this key.
+verify_jwt = false
