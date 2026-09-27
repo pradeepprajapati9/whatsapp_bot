@@ -16,7 +16,14 @@
 
 import { CONFIG } from "./config.ts";
 import { buildReply, menuRows, shouldOfferMenu, type Session } from "./bot.ts";
-import { getSession, saveAppointment, saveSession } from "./store.ts";
+import {
+  getPatientLang,
+  getSession,
+  saveAppointment,
+  savePatient,
+  saveSession,
+  takenBands,
+} from "./store.ts";
 
 // --- Credentials from secrets (never hard-code tokens) ----------------------
 const VERIFY_TOKEN = Deno.env.get("VERIFY_TOKEN") ?? "my_verify_token";
@@ -130,7 +137,23 @@ async function handleIncoming(data: Record<string, any>): Promise<void> {
 
   const session: Session = await getSession(sender);
   const offerMenu = shouldOfferMenu(text, session);
-  const reply = await buildReply(text, CONFIG, session, offerMenu, saveAppointment);
+
+  // What language did this number choose last time? A returning patient is
+  // never asked again - and the reminder that goes out tomorrow has to be in
+  // the same language, or it may as well not be sent.
+  const knownLang = (await getPatientLang(sender)) as
+    ("hinglish" | "hindi" | "english" | null);
+
+  const reply = await buildReply(
+    text, CONFIG, session, offerMenu, saveAppointment,
+    knownLang ?? undefined, takenBands,
+  );
+
+  // If they picked a language in this message, remember it for good.
+  if (session.lang && session.lang !== knownLang) {
+    await savePatient(sender, session.lang, session.data?.name,
+                      CONFIG.business_name ?? "");
+  }
 
   if (offerMenu && !session.flow) {
     await sendMenu(sender, reply); // reply + tappable option list
