@@ -2,3 +2,4 @@
 __pycache__/
 *.pyc
 appointments.json
+supabase/.temp/
